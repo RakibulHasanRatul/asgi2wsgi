@@ -15,7 +15,7 @@ To use `asgi2wsgi`, simply copy the content of the [`asgi2wsgi.py`](./asgi2wsgi.
 
 **_This module is designed to work with any ASGI application that is based on Starlette._**
 
-**<span style="color:red;">Note: This module has only been tested with FastAPI. Compatibility with other Starlette-based ASGI applications is not yet thoroughly tested.</span>**
+⚠️ **_Note:_** _This module has only been tested with FastAPI. Compatibility with other Starlette-based ASGI applications is not yet thoroughly tested._
 
 ```python
 from fastapi import FastAPI # or any other Starlette-based ASGI framework
