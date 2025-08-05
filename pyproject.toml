@@ -1,0 +1,12 @@
+[project]
+name = "asgi2wsgi"
+version = "0.1.0"
+description = "A module to run ASGI applications (like FastAPI) in WSGI environments."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Rakibul Hasan Ratul", email = "rakibulhasanratul@proton.me" },
+]
+dependencies = [
+    "starlette>=0.47.2",
+]
