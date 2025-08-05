@@ -8,11 +8,12 @@ It functions by wrapping an ASGI application, translating incoming WSGI requests
 
 `asgi2wsgi` provides a robust and efficient solution for integrating ASGI applications into WSGI servers:
 
-- **Broad ASGI Framework Compatibility**: Designed to work seamlessly with any ASGI 3.0 compliant application, including popular frameworks like FastAPI and Starlette. ✨
-- **Performance Optimized**: Engineered for minimal overhead, translating between protocols efficiently to maintain application performance. 🚀
-- **Robust Type Safety**: Implemented with strict type annotations, leveraging Python 3.12+ syntax for clarity and maintainability. 🛡️
-- **Memory Safety**: Includes a built-in cap on the maximum request body size (currently 10 MB) to prevent excessive memory consumption and enhance stability, protecting your server from large malicious inputs. 🧠
-- **Easy Integration**: Provides a straightforward way to deploy ASGI applications in existing WSGI server setups with minimal configuration. 🔌
+- **Broad ASGI Framework Compatibility**: Designed to work seamlessly with any ASGI 3.0 compliant application, including popular frameworks like FastAPI and Starlette. ✓
+- **Performance Optimized**: Engineered for minimal overhead, translating between protocols efficiently to maintain application performance. ⚡
+- **Robust Type Safety**: Implemented with strict type annotations, leveraging Python 3.12+ syntax for clarity and maintainability. ✅
+- **Memory Safety**: Includes a built-in cap on the maximum request body size (currently 10 MB) to prevent excessive memory consumption and enhance stability, protecting your server from large malicious inputs. ⚠️
+- **Configurable Logging**: Integrates standard Python logging, allowing you to easily configure log levels and handlers for debugging and monitoring. ⚙️
+- **Easy Integration**: Provides a straightforward way to deploy ASGI applications in existing WSGI server setups with minimal configuration. 🔗
 
 ## Usage
 
@@ -20,7 +21,7 @@ To integrate `asgi2wsgi` into your project, simply copy the content of the `asgi
 
 This module is designed to be broadly compatible with any ASGI application that adheres to the ASGI 3.0 specification.
 
-⚠ **Note on Compatibility**: While `asgi2wsgi` is built to be general-purpose ASGI 3.0 compliant, it has been primarily optimized and extensively tested with FastAPI applications. Compatibility with other Starlette-based or independent ASGI frameworks may vary and should be thoroughly tested in your specific environment.
+⚠️ **Note on Compatibility**: While general-purpose ASGI 3.0 compliant, `asgi2wsgi` has been primarily optimized and tested with FastAPI applications. Compatibility with other ASGI frameworks should be thoroughly tested in your specific environment.
 
 The `ASGI2WSGI` constructor accepts an optional `num_workers` argument (defaulting to `1`) to control the size of the internal thread pool used for executing the ASGI application. Adjust this value based on your concurrency needs and available resources. A higher number increases potential concurrency.
 
