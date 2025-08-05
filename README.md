@@ -11,33 +11,33 @@
 
 ## Usage
 
-To use `asgi2wsgi`, simply copy the content of the [`asgi2wsgi.py`](./asgi2wsgi.py) file into your project's codebase. Then, you can import the `ASGI2WSGI` class and wrap your ASGI application with it.
+To integrate `asgi2wsgi` into your project, simply copy the content of the `asgi2wsgi.py` file into your codebase. Once copied, you can import the `ASGI2WSGI` class and wrap your existing ASGI application with it.
 
-**_This module is designed to work with any ASGI application that is based on Starlette._**
+This module is designed to be compatible with any ASGI application that adheres to the ASGI 3.0 specification.
 
 ⚠ **_Note:_** _This module has only been tested with FastAPI. Compatibility with other Starlette-based ASGI applications is not yet thoroughly tested._
 
 ```python
-from fastapi import FastAPI # or any other Starlette-based ASGI framework
-from asgi2wsgi import ASGI2WSGI # asuming the file was named asgi2wsgi.py contains ASGI2WSGI
+from fastapi import FastAPI # Example: Your ASGI framework import
+from asgi2wsgi import ASGI2WSGI # Assuming asgi2wsgi.py is in your project
 
-# Your ASGI application (e.g., FastAPI app)
-my_asgi_app = FastAPI()
+# Your ASGI application instance
+my_asgi_app = FastAPI() # Replace with your actual ASGI app initialization
 
 @my_asgi_app.get("/")
 async def read_root():
-    return {"Hello": "World"}
+    return {"message": "Hello from ASGI!"}
 
-# Wrap your ASGI app for WSGI environments
+# Wrap your ASGI application for deployment in a WSGI environment
 application = ASGI2WSGI(my_asgi_app)
 
-# Now, 'application' can be used in your WSGI server configuration
-# (e.g., in a `passenger_wsgi.py` file for cPanel)
+# The 'application' object is now a WSGI callable that can be served by any WSGI server
+# (e.g., Gunicorn, Apache with mod_wsgi, cPanel's Passenger)
 ```
 
 ### Example for cPanel (passenger_wsgi.py)
 
-If you are deploying on cPanel, you would typically have a `passenger_wsgi.py` file in your application's root directory. The content of this file would look something like this:
+For deployments on cPanel, you typically use a `passenger_wsgi.py` file in your application's root directory. Here's an example of how to configure it:
 
 ```python
 import os
@@ -46,11 +46,11 @@ import sys
 # Add your application's directory to the Python path
 sys.path.insert(0, os.path.dirname(__file__))
 
-from fastapi import FastAPI # or your Starlette-based ASGI app
+from fastapi import FastAPI # Replace with your actual ASGI framework import
 from asgi2wsgi import ASGI2WSGI
 
-# Initialize your ASGI app
-app = FastAPI()
+# Initialize your ASGI application
+app = FastAPI() # Replace with your actual ASGI app initialization
 
 @app.get("/")
 async def read_root():

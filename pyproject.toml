@@ -7,6 +7,4 @@ requires-python = ">=3.12"
 authors = [
     { name = "Rakibul Hasan Ratul", email = "rakibulhasanratul@proton.me" },
 ]
-dependencies = [
-    "starlette>=0.47.2",
-]
+dependencies = []
