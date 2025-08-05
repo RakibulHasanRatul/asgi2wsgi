@@ -1,7 +1,7 @@
 [project]
 name = "asgi2wsgi"
 version = "0.1.0"
-description = "A module to run ASGI applications (like FastAPI) in WSGI environments."
+description = "A module to run ASGI applications in WSGI environments."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
