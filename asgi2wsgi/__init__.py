@@ -128,9 +128,7 @@ class ASGI2WSGI:
         self.app = app
         # Initialize ThreadPoolExecutor. This executor will typically persist for the
         # lifetime of the application process, handling multiple concurrent WSGI requests.
-        self.executor = concurrent.futures.ThreadPoolExecutor(
-            max_workers=num_workers
-        )
+        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=num_workers)
 
         # Configure the adapter's specific logger format and stream.
         # Clear existing handlers to prevent duplicate logs or conflicts with prior basicConfig settings.
@@ -191,9 +189,7 @@ class ASGI2WSGI:
         # Add standard content headers (e.g., Content-Type, Content-Length) if present.
         for header_name_key in ("CONTENT_TYPE", "CONTENT_LENGTH"):
             if value := environ.get(header_name_key):
-                header_name = (
-                    header_name_key.replace("_", "-").lower().encode(ENCODING)
-                )
+                header_name = header_name_key.replace("_", "-").lower().encode(ENCODING)
                 request_headers.append((header_name, value.encode(ENCODING)))
                 logger.debug(
                     "Parsed content header: %s: %s",
@@ -243,9 +239,7 @@ class ASGI2WSGI:
             try:
                 length: int = min(int(content_length_str), MAX_BODY_SIZE)
                 request_body = environ["wsgi.input"].read(length)
-                logger.debug(
-                    "Read %d bytes from request body.", len(request_body)
-                )
+                logger.debug("Read %d bytes from request body.", len(request_body))
             except (ValueError, TypeError) as e:
                 # Log if CONTENT_LENGTH is invalid or input stream issues occur. Proceed with an empty body.
                 logger.error(
@@ -264,9 +258,7 @@ class ASGI2WSGI:
                     exc_info=True,
                 )
         else:
-            logger.debug(
-                "No CONTENT_LENGTH header, assuming empty request body."
-            )
+            logger.debug("No CONTENT_LENGTH header, assuming empty request body.")
 
         # Queues for inter-thread communication between the WSGI thread and the ASGI thread:
         # `start_queue`: Transmits HTTP status and headers (from ASGI thread).
@@ -283,9 +275,7 @@ class ASGI2WSGI:
             start_queue,
             chunk_queue,
         )
-        logger.debug(
-            "ASGI application submitted to thread pool for %s", scope["path"]
-        )
+        logger.debug("ASGI application submitted to thread pool for %s", scope["path"])
 
         try:
             # Wait for the ASGI application to complete its execution or raise an exception.
@@ -312,9 +302,7 @@ class ASGI2WSGI:
         status: str
         wsgi_headers: list[tuple[str, str]]
         status, wsgi_headers = start_queue.get()
-        logger.debug(
-            "Received HTTP status '%s' and headers from ASGI thread.", status
-        )
+        logger.debug("Received HTTP status '%s' and headers from ASGI thread.", status)
 
         def response_stream() -> Iterable[bytes]:
             """
@@ -462,9 +450,7 @@ class ASGI2WSGI:
                 # it signals the end of the response body stream.
                 if not message.get("more_body", False):
                     chunk_queue.put(None)  # Sentinel for end of stream
-                    logger.debug(
-                        "Queued end-of-stream sentinel for %s.", scope["path"]
-                    )
+                    logger.debug("Queued end-of-stream sentinel for %s.", scope["path"])
             else:
                 logger.warning(
                     "Received unhandled ASGI message type '%s' for %s.",
@@ -553,4 +539,11 @@ class ASGI2WSGI:
                     scope["path"],
                     e,
                     exc_info=True,
+                )
+            finally:
+                loop.close()
+                logger.debug(
+                    "Asyncio event loop closed for thread %s (request %s).",
+                    threading.get_ident(),
+                    scope["path"],
                 )
