@@ -7,6 +7,7 @@ It functions by wrapping an ASGI application, translating incoming WSGI requests
 ## Table of Contents
 
 - [Features](#features)
+- [Installation](#installation)
 - [Usage](#usage)
   - [Example for cPanel (passenger_wsgi.py)](#example-for-cpanel-passenger_wsgipy)
 - [Contributing](#contributing)
@@ -25,9 +26,17 @@ It functions by wrapping an ASGI application, translating incoming WSGI requests
 - **Configurable Logging**: Integrates standard Python logging, allowing you to easily configure log levels, format, and stream for debugging and monitoring.
 - **Easy Integration**: Provides a straightforward way to deploy ASGI applications in existing WSGI server setups with minimal configuration.
 
-## Usage
+## Installation
 
-`asgi2wsgi` is designed as a single-file module, meaning it does not require `pip` installation. To integrate it into your project, simply copy the content of the [`asgi2wsgi/__init__.py`](./asgi2wsgi/__init__.py) file into your codebase. Once copied, you can import the `ASGI2WSGI` class and wrap your existing ASGI application with it.
+`asgi2wsgi` can be installed using [uv](https://github.com/astral-sh/uv) from its Git repository:
+
+```bash
+uv add git+https://github.com/RakibulHasanRatul/asgi2wsgi
+```
+
+Despite the `uv` installation option, developers can also simply copy and paste the module. `asgi2wsgi` is designed as a single-file module, meaning it does not strictly require `pip` or `uv` installation. To integrate it into your project, simply copy the content of the [`asgi2wsgi/__init__.py`](./asgi2wsgi/__init__.py) file into your codebase. Once copied, you can import the `ASGI2WSGI` class and wrap your existing ASGI application with it.
+
+## Usage
 
 This module is designed to be broadly compatible with any ASGI application that adheres to the ASGI 3.0 specification.
 
@@ -90,7 +99,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Rakibul Hasan Ratul <rakibulhasanratul@proton.me>  
+Rakibul Hasan Ratul <rakibulhasanratul@proton.me>
 Independent Developer, Dhaka, Bangladesh
 
 ## Origin
